@@ -6,7 +6,7 @@ local CoreGui = game:GetService("CoreGui")
 local TeleportService = game:GetService("TeleportService")
 
 if Bubble and Bubble.Loaded then
-    warn("[Bubble] Script is already loaded")
+    warn("Script is already loaded")
     return
 end
 
@@ -20,16 +20,17 @@ end)
 if success and response and response.Body then
     data = HttpService:JSONDecode(response.Body)
 else
-    warn("[Bubble] Failed to get universeId from API")
+    warn("Failed to get universeId from API")
     return
 end
 
-local function Loadscript(Script)
-    local Domain = "https://fl3.netlify.app/games/"
-    return loadstring(game:HttpGet(Domain .. Script .. ".lua"))()
+local function Loadscript(script)
+    local domain = "https://raw.githubusercontent.com/fledotexe/Bubble/request/Games/"
+    return loadstring(game:HttpGet(domain .. script .. ".lua"))()
 end
 
 getgenv().Bubble = {
+    PlaceId = nil,
     Loaded = false,
     Games = {
         [87039211657390] = {Name = "Arise Crossover", UUID = 7074860883},
@@ -38,12 +39,12 @@ getgenv().Bubble = {
 
 for id, game in pairs(Bubble.Games) do
     if data.universeId == game.UUID then
-        print("[Bubble] Found supported game:", game.Name)
-        Loadscript(id)
+        print("Found supported game:", game.Name)
         Bubble.Loaded = true
-        PlaceId = id
+        Bubble.PlaceId = id
+        Loadscript(id)
     else
-        warn("[Bubble] We do not support this game")
+        warn("Bubble does not support this game")
         return
     end
 end
@@ -51,7 +52,7 @@ end
 CoreGui.DescendantAdded:Connect(function(Ins)
     if Ins.Name == "LeaveButton" then
         task.delay(1, function()
-            TeleportService:Teleport(PlaceId, Players.LocalPlayer)
+            TeleportService:Teleport(Bubble.PlaceId, Players.LocalPlayer)
         end)
     end
 end)
