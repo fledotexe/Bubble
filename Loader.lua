@@ -33,7 +33,8 @@ getgenv().Bubble = {
     PlaceId = nil,
     Loaded = false,
     Games = {
-        [87039211657390] = {Name = "Arise Crossover", UUID = 7074860883},
+        [87039211657390]  = {Name = "Arise Crossover", UUID = 7074860883},
+        [101949297449238] = {Name = "Build An Island", UUID = 7541395924},
     }
 }
 
