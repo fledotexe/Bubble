@@ -44,10 +44,12 @@ for id, game in pairs(Bubble.Games) do
         Bubble.Loaded = true
         Bubble.PlaceId = id
         Loadscript(id)
-    else
-        warn("Bubble does not support this game")
-        return
     end
+end
+
+if not Bubble.Loaded then
+    warn("Bubble does not support this game")
+    return
 end
 
 CoreGui.DescendantAdded:Connect(function(Ins)
